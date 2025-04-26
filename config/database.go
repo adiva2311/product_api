@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/adiva2311/product_api.git/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -26,6 +27,12 @@ func InitDB() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Default().Println("Database Connected Succesfully")
+
+	err = db.AutoMigrate(&models.User{}, &models.Product{})
+	if err != nil {
+		log.Fatalln("Failed to Auto Migrate Table", err)
+	}
+
+	log.Default().Println("Database Connected Succesfully and Migration Completed")
 	return db, nil
 }
