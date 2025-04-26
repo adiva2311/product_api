@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
-	"github.com/adiva2311/product_api.git/config"
 	"github.com/adiva2311/product_api.git/routes"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -22,11 +20,11 @@ func main() {
 	}
 
 	// Connect Database
-	db, err := config.InitDB()
-	if err != nil {
-		log.Fatal("Failed Connect to Database")
-	}
-	fmt.Println(db)
+	// db, err := config.InitDB()
+	// if err != nil {
+	// 	log.Fatal("Failed Connect to Database")
+	// }
+	// fmt.Println(db)
 
 	//Middleware
 	e.Use(middleware.Logger())
