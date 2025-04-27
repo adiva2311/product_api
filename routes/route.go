@@ -23,6 +23,6 @@ func ApiRoutes(e *echo.Echo) {
 	// USER
 	userController := controllers.NewUserController(db)
 	e.POST("/user/register", userController.Register)
-	// e.POST("/login", controllers.Login)
+	e.POST("/user/login", userController.Login)
 
 }

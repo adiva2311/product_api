@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"log"
 
 	"github.com/adiva2311/product_api.git/helpers"
@@ -20,7 +21,23 @@ type UserServiceImpl struct {
 
 // Login implements UserService.
 func (u *UserServiceImpl) Login(request helpers.LoginRequest) (helpers.LoginResponse, error) {
-	panic("unimplemented")
+	// Check Username if Exist
+	user, err := u.UserRepo.CheckUsername(request.Username)
+	if err != nil {
+		return helpers.LoginResponse{}, errors.New("invalid username or password")
+	}
+
+	// Check Password
+	if !helpers.CheckPasswordHash(request.Password, user.Password) {
+		return helpers.LoginResponse{}, errors.New("invalid username or password")
+	}
+
+	// Generate JWT
+	token, err := helpers.GenerateJWT(int(user.ID), user.Username)
+	if err != nil {
+		return helpers.LoginResponse{}, err
+	}
+	return helpers.ToLoginResponse(user, token), nil
 }
 
 // Register implements UserService.

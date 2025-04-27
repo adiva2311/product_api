@@ -22,7 +22,29 @@ type UserControllerImpl struct {
 
 // Login implements UserController.
 func (u *UserControllerImpl) Login(c echo.Context) error {
-	panic("unimplemented")
+	userPayload := new(helpers.LoginRequest)
+
+	err := c.Bind(userPayload)
+	if err != nil {
+		return err
+	}
+
+	result, err := u.UserService.Login(helpers.LoginRequest{
+		Username: userPayload.Username,
+		Password: userPayload.Password,
+	})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "Gagal Login", "error": err.Error()})
+	}
+	fmt.Println(result)
+
+	apiResponse := helpers.ApiResponse{
+		Status:  http.StatusOK,
+		Message: "Berhasil Login",
+		Data:    result,
+	}
+
+	return c.JSON(http.StatusOK, apiResponse)
 }
 
 // Register implements UserController.

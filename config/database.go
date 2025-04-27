@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/adiva2311/product_api.git/models"
 	"github.com/joho/godotenv"
@@ -34,5 +35,12 @@ func InitDB() (*gorm.DB, error) {
 	}
 
 	log.Default().Println("Database Connected Succesfully and Migration Completed")
+
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxOpenConns(10)
+	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetConnMaxLifetime(60 * time.Minute)
+	sqlDB.SetConnMaxIdleTime(10 * time.Minute)
+
 	return db, nil
 }

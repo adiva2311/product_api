@@ -25,3 +25,11 @@ type LoginResponse struct {
 	Email    string `json:"email"`
 	Token    string `json:"token"`
 }
+
+func ToLoginResponse(user *models.User, token string) LoginResponse {
+	return LoginResponse{
+		Username: user.Username,
+		Email:    user.Email,
+		Token:    token,
+	}
+}
