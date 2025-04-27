@@ -23,7 +23,6 @@ type ProductServiceImpl struct {
 // Create implements ProductService.
 func (p *ProductServiceImpl) Create(request models.Product) helpers.ProductResponse {
 	product := &models.Product{
-		ID:          request.ID,
 		ProductName: request.ProductName,
 		Total:       request.Total,
 		Price:       request.Price,
