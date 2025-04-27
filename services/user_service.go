@@ -33,7 +33,7 @@ func (u *UserServiceImpl) Login(request helpers.LoginRequest) (helpers.LoginResp
 	}
 
 	// Generate JWT
-	token, err := helpers.GenerateJWT(int(user.ID), user.Username)
+	token, err := helpers.GenerateJWT(int(user.ID), user.Username, user.Role)
 	if err != nil {
 		return helpers.LoginResponse{}, err
 	}
@@ -53,6 +53,7 @@ func (u *UserServiceImpl) Register(request models.User) (helpers.UserResponse, e
 	user := &models.User{
 		Username: request.Username,
 		Email:    request.Email,
+		Role:     request.Role,
 		Password: hashPassword,
 	}
 

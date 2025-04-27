@@ -6,6 +6,7 @@ import (
 
 	"github.com/adiva2311/product_api.git/config"
 	"github.com/adiva2311/product_api.git/controllers"
+	middlewares "github.com/adiva2311/product_api.git/middleware"
 	"github.com/labstack/echo/v4"
 )
 
@@ -25,4 +26,10 @@ func ApiRoutes(e *echo.Echo) {
 	e.POST("/user/register", userController.Register)
 	e.POST("/user/login", userController.Login)
 
+	// PRODUCT
+	productController := controllers.NewProductController(db)
+	e.POST("/product", productController.Create, middlewares.JWTMiddleware)
+	// e.GET("/product", productController.GetAll)
+	// e.PATCH("/product/:product_id", productController.Update)
+	// e.DELETE("/product/:product_id", productController.Delete)
 }

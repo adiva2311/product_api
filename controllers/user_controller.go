@@ -59,6 +59,7 @@ func (u *UserControllerImpl) Register(c echo.Context) error {
 	result, err := u.UserService.Register(models.User{
 		Username: userPayload.Username,
 		Email:    userPayload.Email,
+		Role:     userPayload.Role,
 		Password: userPayload.Password,
 	})
 
