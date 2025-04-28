@@ -29,7 +29,7 @@ func ApiRoutes(e *echo.Echo) {
 	// PRODUCT
 	productController := controllers.NewProductController(db)
 	e.POST("/product", productController.Create, middlewares.JWTMiddleware)
-	// e.GET("/product", productController.GetAll)
-	// e.PATCH("/product/:product_id", productController.Update)
-	// e.DELETE("/product/:product_id", productController.Delete)
+	e.GET("/product", productController.GetByUserId, middlewares.JWTMiddleware)
+	e.PATCH("/product/:product_id", productController.Update, middlewares.JWTMiddleware)
+	e.DELETE("/product/:product_id", productController.Delete, middlewares.JWTMiddleware)
 }

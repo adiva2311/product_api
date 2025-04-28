@@ -6,9 +6,9 @@ import (
 )
 
 type ProductRepository interface {
-	Create(product models.Product) error
+	Create(product *models.Product) error
 	GetByUserId(user_id int) ([]models.Product, error)
-	Update(product_id int, user_id int, product models.Product) error
+	Update(product_id int, user_id int, product *models.Product) error
 	Delete(product_id int, user_id int) error
 }
 
@@ -17,8 +17,8 @@ type ProductRepositoryImpl struct {
 }
 
 // Create implements ProductRepository.
-func (p *ProductRepositoryImpl) Create(product models.Product) error {
-	return p.Conn.Create(&product).Error
+func (p *ProductRepositoryImpl) Create(product *models.Product) error {
+	return p.Conn.Create(product).Error
 }
 
 // Delete implements ProductRepository.
@@ -35,8 +35,8 @@ func (p *ProductRepositoryImpl) GetByUserId(user_id int) ([]models.Product, erro
 }
 
 // Update implements ProductRepository.
-func (p *ProductRepositoryImpl) Update(product_id int, user_id int, product models.Product) error {
-	return p.Conn.Where("id = ? AND user_id = ?", product_id, user_id).Updates(&models.Product{}).Error
+func (p *ProductRepositoryImpl) Update(product_id int, user_id int, product *models.Product) error {
+	return p.Conn.Where("id = ? AND user_id = ?", product_id, user_id).Updates(product).Error
 }
 
 func NewProductRepository(conn *gorm.DB) ProductRepository {

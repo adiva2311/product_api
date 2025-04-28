@@ -18,3 +18,11 @@ type ProductRequest struct {
 	Price       float32 `json:"price"`
 	UserID      uint    `json:"user_id"`
 }
+
+type UpdateProductRequest struct {
+	ID          uint    `json:"id"`
+	ProductName string  `json:"product_name"`
+	Total       int     `json:"total"`
+	Price       float32 `json:"price"`
+	UserID      uint    `json:"user_id"`
+}
