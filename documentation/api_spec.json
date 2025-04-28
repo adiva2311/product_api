@@ -1,0 +1,388 @@
+{
+	"openapi": "3.0.4",
+	"info": {
+		"title": "Product API with JWT Key",
+		"description": "API Specification for Product API App using Golang, Echo, GORM, and MySQL",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "http://127.0.0.1:8080"
+		}
+	],
+	"paths": {
+		"/user/register": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "Register a New User",
+				"requestBody": {
+					"content": {
+						"aplication/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"username": {
+										"type": "string",
+										"example": "your_name"
+									},
+									"role": {
+										"type": "string",
+										"example": "admin"
+									},
+									"email": {
+										"type": "string",
+										"example": "your_name@example.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "your_password"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success Register New User",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Berhasil Register"
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"username": {
+														"type": "string",
+														"example": "your_name"
+													},
+													"role": {
+														"type": "string",
+														"example": "admin"
+													},
+													"email": {
+														"type": "string",
+														"example": "your_name@example.com"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/login": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "Login User and Get JSON Web Token(JWT)",
+				"requestBody": {
+					"content": {
+						"aplication/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"username": {
+										"type": "string",
+										"example": "your_username"
+									},
+									"password": {
+										"type": "string",
+										"example": "your_password"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success Login User",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Success Login User"
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"username": {
+														"type": "string",
+														"example": "your_name"
+													},
+													"email": {
+														"type": "string",
+														"example": "your_name@example.com"
+													},
+													"role": {
+														"type": "string",
+														"example": "admin"
+													},
+													"token": {
+														"type": "string",
+														"example": "jwt_token"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/product": {
+			"get": {
+				"security": [{ "Bearer Token (JWT)": [] }],
+				"tags": ["Product API"],
+				"summary": "Get All Product by UserID",
+				"responses": {
+					"200": {
+						"description": "Get All Product by UserID",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Berhasil Ambil Data Berdasarkan UserID"
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/CreateUpdateGetResponse"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"security": [{ "Bearer Token (JWT)": [] }],
+				"tags": ["Product API"],
+				"summary": "Create Product List",
+				"requestBody": {
+					"content": {
+						"aplication/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUpdateRequest"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Create Product Data",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Success Create Data"
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/CreateUpdateGetResponse"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/product/{product_id}": {
+			"patch": {
+				"security": [{ "Bearer Token (JWT)": [] }],
+				"tags": ["Product API"],
+				"summary": "Update Product Data",
+				"parameters": [
+					{
+						"name": "product_id",
+						"schema": {
+							"type": "number",
+							"example": 10
+						},
+						"in": "path",
+						"description": "input product_id to get data by ID",
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"aplication/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUpdateRequest"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Update Product Data",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Success Update Data"
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/CreateUpdateGetResponse"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"security": [{ "Bearer Token (JWT)": [] }],
+				"tags": ["Product API"],
+				"summary": "Delete Product Data",
+				"parameters": [
+					{
+						"name": "product_id",
+						"schema": {
+							"type": "number",
+							"example": 10
+						},
+						"in": "path",
+						"description": "input product_id to get data by ID",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Delete Product Data",
+						"content": {
+							"aplication/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "number",
+											"example": 200
+										},
+										"message": {
+											"type": "string",
+											"example": "Success Delete Data"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"Bearer Token (JWT)": {
+				"type": "http",
+				"name": "JWT Token",
+				"scheme": "bearer",
+				"bearerFormat": "JWT",
+				"description": "Authentication for Product Rest API"
+			}
+		},
+		"schemas": {
+			"CreateUpdateGetResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 10
+					},
+					"product_name": {
+						"type": "string",
+						"example": "Book"
+					},
+					"total": {
+						"type": "number",
+						"example": 2
+					},
+					"price": {
+						"type": "number",
+						"example": 20000
+					},
+					"user_id": {
+						"type": "number",
+						"example": 1
+					}
+				}
+			},
+			"CreateUpdateRequest": {
+				"type": "object",
+				"properties": {
+					"product_name": {
+						"type": "string",
+						"example": "Book"
+					},
+					"total": {
+						"type": "number",
+						"example": 2
+					},
+					"price": {
+						"type": "number",
+						"example": 20000
+					}
+				}
+			}
+		}
+	}
+}

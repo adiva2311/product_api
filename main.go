@@ -19,13 +19,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	// Connect Database
-	// db, err := config.InitDB()
-	// if err != nil {
-	// 	log.Fatal("Failed Connect to Database")
-	// }
-	// fmt.Println(db)
-
 	//Middleware
 	e.Use(middleware.Logger())
 
