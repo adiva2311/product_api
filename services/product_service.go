@@ -13,7 +13,7 @@ type ProductService interface {
 	Create(request models.Product) helpers.ProductResponse
 	GetByUserId(user_id int) []models.Product
 	Update(product_id int, user_id int, request models.Product) helpers.ProductResponse
-	Delete(product_id int, user_id int) error
+	Delete(product_id int, user_id int) (int, error)
 }
 
 type ProductServiceImpl struct {
@@ -38,12 +38,12 @@ func (p *ProductServiceImpl) Create(request models.Product) helpers.ProductRespo
 }
 
 // Delete implements ProductService.
-func (p *ProductServiceImpl) Delete(product_id int, user_id int) error {
-	err := p.ProductRepo.Delete(product_id, user_id)
+func (p *ProductServiceImpl) Delete(product_id int, user_id int) (int, error) {
+	rowsAffected, err := p.ProductRepo.Delete(product_id, user_id)
 	if err != nil {
 		log.Fatal("Failed to Delete Product")
 	}
-	return nil
+	return int(rowsAffected), nil
 }
 
 // GetByUserId implements ProductService.

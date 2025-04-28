@@ -176,12 +176,17 @@ func (p *ProductControllerImpl) Delete(c echo.Context) error {
 	product_id := uint(id)
 
 	if roleInterface == "admin" {
-		err = p.ProductService.Delete(int(product_id), int(User_id))
+		rowsAffected, err := p.ProductService.Delete(int(product_id), int(User_id))
 		if err != nil {
 			fmt.Printf("Delete error: %v\n", err)
 			return c.JSON(http.StatusInternalServerError, helpers.ApiResponse{
 				Status:  http.StatusBadRequest,
 				Message: "Failed to Delete Data",
+			})
+		} else if rowsAffected < 1 {
+			return c.JSON(http.StatusInternalServerError, helpers.ApiResponse{
+				Status:  http.StatusBadRequest,
+				Message: "No Data Found",
 			})
 		}
 
