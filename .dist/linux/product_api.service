@@ -1,0 +1,29 @@
+# systemd service for managing all BP Member Api service on this system.
+[Unit]
+Description=Product Api Service
+
+ConditionPathExists=/usr/sbin/product_api
+ConditionPathIsDirectory=/etc/product_api
+ConditionPathExists=/etc/rsyslog.d/syslog-product_api.conf
+ConditionPathIsDirectory=/var/log/product_api
+
+#After=network.target postgresql.service
+#Wants=network-online.target postgresql.service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/etc/product_api
+ExecStart=/usr/sbin/product_api --run
+
+# Comment this option consider to this error "Standard output type syslog is obsolet"
+# StandardOutput=syslog
+# StandardError=syslog
+# SyslogIdentifier=bpmemberapi
+
+Environment=debug_option
+
+[Install]
+WantedBy=multi-user.target
