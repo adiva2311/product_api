@@ -4,9 +4,9 @@ import (
 	"errors"
 	"log"
 
-	"github.com/adiva2311/product_api.git/helpers"
-	"github.com/adiva2311/product_api.git/models"
-	"github.com/adiva2311/product_api.git/repositories"
+	"product_api/helpers"
+	"product_api/models"
+	"product_api/repositories"
 	"gorm.io/gorm"
 )
 

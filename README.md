@@ -14,7 +14,7 @@ Dibangun menggunakan Golang, Echo framework, GORM dan MySQL sebagai database.
 #### 1. Clone Repository
 
 ```bash
-$   git clone https://github.com/adiva2311/product_api.git
+$   git clone https://product_api
 $   cd product_api
 ```
 

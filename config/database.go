@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/adiva2311/product_api.git/models"
+	"product_api/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

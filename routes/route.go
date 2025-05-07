@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/adiva2311/product_api.git/config"
-	"github.com/adiva2311/product_api.git/controllers"
-	middlewares "github.com/adiva2311/product_api.git/middleware"
+	"product_api/config"
+	"product_api/controllers"
+	middlewares "product_api/middleware"
 	"github.com/labstack/echo/v4"
 )
 

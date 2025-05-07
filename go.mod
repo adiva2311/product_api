@@ -1,4 +1,4 @@
-module github.com/adiva2311/product_api.git
+module product_api
 
 go 1.23.2
 

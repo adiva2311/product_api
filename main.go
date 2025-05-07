@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/adiva2311/product_api.git/routes"
+	"product_api/routes"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

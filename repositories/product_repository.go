@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/adiva2311/product_api.git/models"
+	"product_api/models"
 	"gorm.io/gorm"
 )
 

@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/adiva2311/product_api.git/helpers"
-	"github.com/adiva2311/product_api.git/models"
-	"github.com/adiva2311/product_api.git/services"
+	"product_api/helpers"
+	"product_api/models"
+	"product_api/services"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )

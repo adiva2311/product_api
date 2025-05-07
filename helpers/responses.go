@@ -1,6 +1,6 @@
 package helpers
 
-import "github.com/adiva2311/product_api.git/models"
+import "product_api/models"
 
 type ApiResponse struct {
 	Status  int         `json:"status"`

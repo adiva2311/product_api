@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/adiva2311/product_api.git/helpers"
+	"product_api/helpers"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 )
